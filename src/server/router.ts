@@ -1,7 +1,8 @@
 import * as debug from 'debug'
 import * as Router from 'koa-router'
 import * as compose from 'koa-compose'
-import makeRenderApp from 'server/render-app'
+import makeRenderApp from 'server/middleware/render-app'
+import setStore from 'server/middleware/set-store'
 import apiRouter from 'server/api'
 
 const log = debug('server-router')
@@ -14,7 +15,7 @@ export function setRoutes(assets) {
   /* build app from routes, set initial state and set response html */
   const renderReactApp = compose([
     /* set a store for server side state rendering */
-    // setStore,
+    setStore,
     /* wire up flashMessages from redirect to server store */
     // flashMessages,
     /* give assets from bundle, set response body from react app */

@@ -1,15 +1,17 @@
 import * as webpack from 'webpack'
+import * as ExtractTextPlugin from 'extract-text-webpack-plugin';
 import * as CleanPlugin from 'clean-webpack-plugin'
 import { CheckerPlugin } from 'awesome-typescript-loader';
-import { ROOT, APP, STATIC, SRC, CONFIG, SERVER } from './paths'
+import { ROOT, APP, STATIC, SRC, CONFIG, SERVER, STYLES } from './paths'
 import { isomorphicPlugin } from './isomorphic-tools'
 
 export default {
   entry: {
+    head: [],
     body: [
+      `${STYLES}/main.scss`,
       `${APP}/entry.tsx`,
     ],
-    // head: [],
   },
   output: {
     path: STATIC,
@@ -17,17 +19,16 @@ export default {
     publicPath: '/',
   },
   resolve: {
-    modules: [ 'node_modules', SRC ],
-    extensions: [ '.ts', '.tsx', '.js', '.jsx' ],
+    modules: [ 'node_modules', SRC, STYLES ],
+    extensions: [ '.ts', '.tsx', '.js', '.jsx', '.scss' ],
   },
   plugins: [
     isomorphicPlugin,
-    new webpack.NoEmitOnErrorsPlugin(), // ?
-    // new webpack.NamedModulesPlugin(), // ?
+    new webpack.NoEmitOnErrorsPlugin(),
     new CleanPlugin([ 'src/static' ], {
       root: ROOT,
     }),
-    // new CheckerPlugin(),
+    new CheckerPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
@@ -35,17 +36,36 @@ export default {
         'APP_ENV': JSON.stringify('browser'),
       },
     }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'head',
-    // }),
-    // new ExtractTextPlugin({
-    //   filename: '[name].[hash].css',
-    //   allChunks: true,
-    // }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'head',
+    }),
+    new ExtractTextPlugin({
+      filename: '[name].[hash].css',
+      allChunks: true,
+    }),
   ],
   module: {
     rules: [
-      // tsConfig,
+      {
+        test: isomorphicPlugin.regular_expression('images'),
+        loader: 'url-loader',
+        options: { limit: 10240 },
+      }, {
+        test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader',
+        options: { limit: 10000, mimetype: 'application/font-woff' },
+      }, {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader',
+        options: { limit: 10000, mimetype: 'application/octet-stream' },
+      }, {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file-loader',
+      }, {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader',
+        options: { limit: 10000, mimetype: 'image/svg+xml' },
+      },
     ],
   },
 }
@@ -54,8 +74,6 @@ export const tsRuleConfig = {
   test: /\.tsx?$/,
   include: [ APP, CONFIG, SERVER ],
   use: [{
-  //   loader: 'react-hot-loader/webpack'
-  // }, {
     loader: 'awesome-typescript-loader',
     options: {
       target: 'es2015',

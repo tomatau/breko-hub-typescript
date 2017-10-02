@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import Html, { Props as HtmlProps } from 'server/Html'
+import Html, { Props as HtmlProps } from 'server/components/Html'
 
 const makeHtmlBody = (props: HtmlProps) =>
   `<!doctype html>${

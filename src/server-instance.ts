@@ -6,7 +6,7 @@ import * as convert from 'koa-convert'
 import * as logger from 'koa-logger'
 import * as debug from 'debug'
 import * as compressible from 'compressible'
-import handleError from 'server/handle-error'
+import handleError from 'server/middleware/handle-error'
 
 // const log = debug('server-instance')
 

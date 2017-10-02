@@ -1,8 +1,11 @@
 {
   "javascript": {
-    "body": "/body.f9c7d125f9c7425c1321.js"
+    "body": "/body.42e7cd142613db001d8c.js",
+    "head": "/head.42e7cd142613db001d8c.js"
   },
-  "styles": {},
+  "styles": {
+    "body": "/body.42e7cd142613db001d8c.css"
+  },
   "assets": {},
   "webpack": {
     "version": "3.5.6"

@@ -5,7 +5,7 @@ import { set } from 'lodash'
 import { RedBoxError } from 'redbox-react'
 import { CONTAINER_ELEMENT_ID } from 'config/constants'
 import { isEnv } from 'app/utils'
-import makeHtmlBody from 'server/make-html-body'
+import makeHtmlBody from 'server/helpers/make-html-body'
 
 const log = debug('handle-error')
 

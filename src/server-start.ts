@@ -1,12 +1,12 @@
 import 'config/environment'
-import 'server/clean-asset-json'
+import 'server/helpers/clean-asset-json'
 import * as debug from 'debug'
 import * as http from 'http'
 import * as serve from 'koa-static'
 import { STATIC, ROOT } from 'config/paths'
 import { isomorphicTools, isomorphicPlugin } from 'config/isomorphic-tools'
 import { isEnv } from 'app/utils'
-import hotReload from 'server/hot-reload'
+import hotReload from 'server/helpers/hot-reload'
 import app from 'server-instance'
 
 const log = debug('server-start')
