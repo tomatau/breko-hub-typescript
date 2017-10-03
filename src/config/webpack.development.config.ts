@@ -29,8 +29,13 @@ export default {
       // not extracting css-modules in development for hot-reloading
       use: [
         { loader: 'style-loader' },
-        { loader: 'css-loader',
-          options: { modules: true, localIdentName: '[path][name]-[local]' } },
+        { loader: 'typings-for-css-modules-loader',
+          options: {
+            modules: true,
+            namedExport: true,
+            localIdentName: '[path][name]-[local]'
+          }
+        },
         { loader: 'postcss-loader' },
         { loader: 'sass-loader',
           options: { outputStyle: 'expanded' } },

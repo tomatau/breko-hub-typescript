@@ -1,11 +1,11 @@
 import * as debug from 'debug'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import * as cx from 'classnames'
 import DocumentMeta from 'react-helmet'
 import { Switch, Route } from 'react-router-dom'
-import HomeRoute from 'app/routes/HomeRoute'
-import BarRoute from 'app/routes/BarRoute'
 import CodeSplit from 'app/components/CodeSplit'
+import * as styles from './App.module.scss'
 
 const log = debug('App')
 
@@ -13,7 +13,7 @@ export default class App extends React.Component {
   render() {
     log('rendering')
     return (
-      <div className={`App`}>
+      <div className={cx(`App`, styles.app)}>
         <DocumentMeta
           defaultTitle='Breko Hub'
           titleTemplate='%s | Breko Hub'>
@@ -24,7 +24,7 @@ export default class App extends React.Component {
           <meta name='keywords' content='react,redux,react-router,koa,universal,babel,es7,hmr,webpack' />
         </DocumentMeta>
         <h1>Breko Hub</h1>
-         <main>
+        <main className={styles.content}>
           <Switch>
             <CodeSplitRoute
               exact
@@ -36,7 +36,7 @@ export default class App extends React.Component {
               load={() => import('app/routes/BarRoute')}
             />
           </Switch>
-         </main>
+        </main>
       </div>
     )
   }

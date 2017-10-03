@@ -1,5 +1,6 @@
 import 'config/environment'
 import 'server/helpers/clean-asset-json'
+import 'server/helpers/css-modules-hook'
 import * as debug from 'debug'
 import * as http from 'http'
 import * as serve from 'koa-static'

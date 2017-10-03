@@ -60,6 +60,7 @@
     "ts-node": "^3.3.0",
     "type-to-reducer": "^1.0.4",
     "typescript": "^2.5.2",
+    "typings-for-css-modules-loader": "^1.6.1",
     "url-loader": "^0.5.9",
     "webpack-isomorphic-tools": "^3.0.4"
   },
